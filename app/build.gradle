@@ -1,0 +1,80 @@
+plugins {
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+}
+
+android {
+    namespace = "com.mycir.termuxrunner"
+    compileSdk = 34
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def appId = variant.applicationId
+            def appVersion = variant.versionName
+            def newApkName = "${appId}_${variant.versionName}.apk"
+            outputFileName = newApkName
+        }
+    }    
+
+    defaultConfig {
+        applicationId = "com.mycir.termuxrunner"
+        minSdk = 24
+        targetSdk = 34
+        versionCode = 1
+        versionName = "1.0"
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
+
+    kotlinOptions {
+        jvmTarget = "21"
+    }
+
+    signingConfigs {
+        release {
+            // supply your own keystore.properties
+            def keystorePropsFile =  rootProject.file("keystore.properties")
+            def keystoreProps = new Properties()
+
+            if (keystorePropsFile.exists()) {
+                keystoreProps.load(new FileInputStream(keystorePropsFile))
+            }   
+            storeFile file(keystoreProps["KP_KEYSTORE"])
+            storePassword keystoreProps["KP_STORE_PASSWORD"]
+            keyAlias keystoreProps["KP_ALIAS"]
+            keyPassword keystoreProps["KP_KEY_PASSWORD"]
+            enableV1Signing = false
+            enableV2Signing = true
+            enableV3Signing = true
+            enableV4Signing = false
+        }
+    }    
+
+    buildTypes {
+        release {
+            minifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.debug
+        }
+    }
+}
+
+    dependencies {
+        implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.10"
+        implementation 'androidx.core:core-ktx:1.12.0'
+    }
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
