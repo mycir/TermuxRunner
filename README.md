@@ -11,23 +11,29 @@ A release APK is available [here](https://github.com/mycir/TermuxRunner/releases
 
 TermuxRunner is based on guidance and template code from [ChatGPT (OpenAI)](https://chatgpt.com/).
 
+## Dependencies
+
+[Termux](https://f-droid.org/en/packages/com.termux/)</br>
+[Termux:API](https://f-droid.org/en/packages/com.termux.api/)</br>
+
+In Termux:
+```
+$ pkg install termux-api file
+```
 ## Installation
 
 Search for 'Install unknown apps' in Settings and allow.
 
-Install the [apk](https://github.com/mycir/TermuxRunner/releases/latest) (build it yourself if you prefer).
+Install the TermuxRunner [apk](https://github.com/mycir/TermuxRunner/releases/latest).
+
+Termux preparations, if not already done:
+
+[Sharing Data (termux-setup-storage and allow-external-apps).](https://wiki.termux.com/wiki/Sharing_Data)</br>
 
 The Termux:Widget plugin is not required, however, please treat [Termux:Widget - Setup Instructions](https://github.com/termux/termux-widget#setup-instructions) as applicable to TermuxRunner. NB If your device is running Android 10 or above, you must give TermuxRunner the [Draw Over Apps permission](https://github.com/termux/termux-widget#draw-over-apps-permission-optional). 
 
 In Termux:
 ```
-$ cp <path, e.g. /storage/emulated/0/Download>/termux-runner.sh /data/data/com.termux/files/home/.shortcuts/tasks
-$ chmod 700 /data/data/com.termux/files/home/.shortcuts/tasks/termux-runner.sh
-```
-
-## Dependencies
-
-In Termux:
-```
-$ pkg install file
+$ cp <path, e.g. ~/storage/downloads>/termux-runner.sh ~/.shortcuts/tasks
+$ chmod 700 ~/.shortcuts/tasks/termux-runner.sh
 ```
